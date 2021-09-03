@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
@@ -36,14 +37,11 @@ use Cake\ORM\TableRegistry;
  *        Users
  *            edit
  * }}}
- *
  */
 class DbAcl implements AclInterface
 {
-
     /**
      * Constructor
-     *
      */
     public function __construct()
     {
@@ -59,7 +57,7 @@ class DbAcl implements AclInterface
     /**
      * Initializes the containing component and sets the Aro/Aco objects to it.
      *
-     * @param AclComponent $component Component
+     * @param \Cake\Controller\Component $component Component
      * @return void
      */
     public function initialize(Component $component)
@@ -77,7 +75,7 @@ class DbAcl implements AclInterface
      * @return bool Success (true if ARO has access to action in ACO, false otherwise)
      * @link http://book.cakephp.org/2.0/en/core-libraries/components/access-control-lists.html#checking-permissions-the-acl-component
      */
-    public function check($aro, $aco, $action = "*")
+    public function check($aro, $aco, $action = '*')
     {
         return $this->Permission->check($aro, $aco, $action);
     }
@@ -92,7 +90,7 @@ class DbAcl implements AclInterface
      * @return bool Success
      * @link http://book.cakephp.org/2.0/en/core-libraries/components/access-control-lists.html#assigning-permissions
      */
-    public function allow($aro, $aco, $actions = "*", $value = 1)
+    public function allow($aro, $aco, $actions = '*', $value = 1)
     {
         return $this->Permission->allow($aro, $aco, $actions, $value);
     }
@@ -106,7 +104,7 @@ class DbAcl implements AclInterface
      * @return bool Success
      * @link http://book.cakephp.org/2.0/en/core-libraries/components/access-control-lists.html#assigning-permissions
      */
-    public function deny($aro, $aco, $action = "*")
+    public function deny($aro, $aco, $action = '*')
     {
         return $this->allow($aro, $aco, $action, -1);
     }
@@ -119,7 +117,7 @@ class DbAcl implements AclInterface
      * @param string $action Action (defaults to *)
      * @return bool Success
      */
-    public function inherit($aro, $aco, $action = "*")
+    public function inherit($aro, $aco, $action = '*')
     {
         return $this->allow($aro, $aco, $action, 0);
     }
@@ -133,7 +131,7 @@ class DbAcl implements AclInterface
      * @return bool Success
      * @see allow()
      */
-    public function grant($aro, $aco, $action = "*")
+    public function grant($aro, $aco, $action = '*')
     {
         return $this->allow($aro, $aco, $action);
     }
@@ -147,7 +145,7 @@ class DbAcl implements AclInterface
      * @return bool Success
      * @see deny()
      */
-    public function revoke($aro, $aco, $action = "*")
+    public function revoke($aro, $aco, $action = '*')
     {
         return $this->deny($aro, $aco, $action);
     }

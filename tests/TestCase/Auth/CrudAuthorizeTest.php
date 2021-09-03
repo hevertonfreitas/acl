@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
@@ -23,17 +24,15 @@ use Cake\TestSuite\TestCase;
 
 /**
  * Class CrudAuthorizeTest
- *
  */
 class CrudAuthorizeTest extends TestCase
 {
-
     /**
      * setup
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         Configure::write('Routing.prefixes', []);
@@ -68,7 +67,7 @@ class CrudAuthorizeTest extends TestCase
      */
     public function testAuthorizeNoMappedAction()
     {
-        $this->expectException(\PHPUnit\Framework\Error\Warning::class);
+        $this->expectWarning();
         $request = new ServerRequest(['url' => '/posts/foobar']);
         $request = $request->withAttribute('params', [
             'controller' => 'posts',

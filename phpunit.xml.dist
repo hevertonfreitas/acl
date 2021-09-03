@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit
-    colors="true"
-    processIsolation="false"
-    stopOnFailure="false"
-    bootstrap="./tests/bootstrap.php"
-    >
-    <php>
-        <ini name="memory_limit" value="-1"/>
-        <ini name="apc.enable_cli" value="1"/>
-
-        <!-- SQLite
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" processIsolation="false" stopOnFailure="false" bootstrap="./tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src/</directory>
+    </include>
+  </coverage>
+  <php>
+    <ini name="memory_limit" value="-1"/>
+    <ini name="apc.enable_cli" value="1"/>
+    <!-- SQLite
         <env name="db_class" value="Cake\Database\Driver\Sqlite"/>
         <env name="db_dsn" value="sqlite:///:memory:"/>
         -->
-        <!-- Postgres
+    <!-- Postgres
         <env name="db_dsn" value="postgres://localhost/cake_test?timezone=UTC"/>
         -->
-        <!-- Mysql
+    <!-- Mysql
         <env name="db_dsn" value="mysql://localhost/cake_test?timezone=UTC"/>
         -->
-        <!-- SQL Server
+    <!-- SQL Server
         <env name="db_dsn" value="sqlserver://localhost/cake_test?timezone=UTC"/>
         -->
-    </php>
-
-    <testsuites>
-        <testsuite name="Acl Plugin Test Suite">
-            <directory>./tests/TestCase/</directory>
-        </testsuite>
-    </testsuites>
-    <listeners>
-        <listener class="\Cake\TestSuite\Fixture\FixtureInjector" file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
-            <arguments>
-                <object class="\Cake\TestSuite\Fixture\FixtureManager" />
-            </arguments>
-        </listener>
-    </listeners>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
+  </php>
+  <testsuites>
+    <testsuite name="Acl Plugin Test Suite">
+      <directory>./tests/TestCase/</directory>
+    </testsuite>
+  </testsuites>
+  <listeners>
+    <listener class="\Cake\TestSuite\Fixture\FixtureInjector" file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
+      <arguments>
+        <object class="\Cake\TestSuite\Fixture\FixtureManager"/>
+      </arguments>
+    </listener>
+  </listeners>
 </phpunit>

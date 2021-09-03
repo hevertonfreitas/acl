@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
@@ -16,7 +17,6 @@
 namespace Acl\Test\TestCase\Model\Table;
 
 use Acl\Adapter\DbAcl;
-use Acl\Model\Table\AclNodesTable;
 use Acl\Model\Table\AcoActionsTable;
 use Acl\Model\Table\AcosTable;
 use Acl\Model\Table\ArosTable;
@@ -25,25 +25,21 @@ use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use Cake\Utility\Hash;
 
 /**
  * Aro Test Wrapper
- *
  */
 class DbAroTest extends ArosTable
 {
-
     /**
      * initialize
      *
      * @param array $config Configuration array
      * @return void
      */
-    public function initialize(array $config) :void
+    public function initialize(array $config): void
     {
         parent::initialize($config);
         $this->setAlias('DbAroTest');
@@ -59,18 +55,16 @@ class DbAroTest extends ArosTable
 
 /**
  * Aco Test Wrapper
- *
  */
 class DbAcoTest extends AcosTable
 {
-
     /**
      * initialize
      *
      * @param array $config Configuration array
      * @return void
      */
-    public function initialize(array $config) :void
+    public function initialize(array $config): void
     {
         parent::initialize($config);
         $this->setAlias('DbAcoTest');
@@ -86,18 +80,16 @@ class DbAcoTest extends AcosTable
 
 /**
  * Permission Test Wrapper
- *
  */
 class DbPermissionTest extends PermissionsTable
 {
-
     /**
      * initialize
      *
      * @param array $config Configuration array
      * @return void
      */
-    public function initialize(array $config) :void
+    public function initialize(array $config): void
     {
         parent::initialize($config);
         $this->setAlias('DbPermissionTest');
@@ -115,18 +107,16 @@ class DbPermissionTest extends PermissionsTable
 
 /**
  * DboActionTest class
- *
  */
 class DbAcoActionTest extends AcoActionsTable
 {
-
     /**
      * initialize
      *
      * @param array $config Configuration array
      * @return void
      */
-    public function initialize(array $config) :void
+    public function initialize(array $config): void
     {
         $this->setTable('aco_actions');
         $this->belongsTo('DbAcoTest', [
@@ -137,11 +127,9 @@ class DbAcoActionTest extends AcoActionsTable
 
 /**
  * DbAroUserTest class
- *
  */
 class DbAroUserTest extends Entity
 {
-
     /**
      * bindNode method
      *
@@ -160,7 +148,6 @@ class DbAroUserTest extends Entity
 
 /**
  * TestDbAcl class
- *
  */
 class TestDbAcl extends DbAcl
 {
@@ -168,11 +155,9 @@ class TestDbAcl extends DbAcl
 
 /**
  * AclNodeTest class
- *
  */
 class AclNodeTest extends TestCase
 {
-
     /**
      * fixtures property
      *
@@ -191,7 +176,7 @@ class AclNodeTest extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         Configure::write('Acl.classname', 'TestDbAcl');

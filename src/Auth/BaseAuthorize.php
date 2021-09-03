@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
@@ -16,7 +17,6 @@
 namespace Acl\Auth;
 
 use Cake\Auth\BaseAuthorize as ParentAuthorize;
-use Cake\Controller\ComponentRegistry;
 use Cake\Http\ServerRequest;
 use Cake\Utility\Inflector;
 
@@ -25,7 +25,6 @@ use Cake\Utility\Inflector;
  */
 abstract class BaseAuthorize extends ParentAuthorize
 {
-
     /**
      * Default config for authorize objects.
      *
@@ -62,8 +61,12 @@ abstract class BaseAuthorize extends ParentAuthorize
      */
     public function action(ServerRequest $request, $path = '/:plugin/:prefix/:controller/:action')
     {
-        $plugin = empty($request->getParam('plugin')) ? null : preg_replace('/\//', '\\', Inflector::camelize($request->getParam('plugin'))) . '/';
-        $prefix = empty($request->getParam('prefix')) ? null : Inflector::camelize($request->getParam('prefix')) . '/';
+        $plugin = empty($request->getParam('plugin'))
+            ? null
+            : preg_replace('/\//', '\\', Inflector::camelize($request->getParam('plugin'))) . '/';
+        $prefix = empty($request->getParam('prefix'))
+            ? null
+            : Inflector::camelize($request->getParam('prefix')) . '/';
         $path = str_replace(
             [':controller', ':action', ':plugin/', ':prefix/'],
             [Inflector::camelize($request->getParam('controller')), $request->getParam('action'), $plugin, $prefix],

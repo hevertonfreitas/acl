@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
@@ -18,17 +19,14 @@ namespace Acl\Adapter;
 use Acl\AclInterface;
 use Cake\Controller\Component;
 use Cake\Core\Configure\Engine\IniConfig;
-use Cake\Core\InstanceConfigTrait;
 use Cake\Utility\Hash;
 
 /**
  * IniAcl implements an access control system using an INI file. An example
  * of the ini file used can be found in /config/acl.ini.
- *
  */
 class IniAcl implements AclInterface
 {
-
     /**
      * The Hash::extract() path to the user/aro identifier in the
      * acl.ini file. This path will be used to extract the string
@@ -60,7 +58,7 @@ class IniAcl implements AclInterface
     /**
      * Initialize method
      *
-     * @param Component $component Component instance.
+     * @param \Cake\Controller\Component $component Component instance.
      * @return void
      */
     public function initialize(Component $component)
@@ -82,7 +80,7 @@ class IniAcl implements AclInterface
      * @param string $action Action (defaults to *)
      * @return void
      */
-    public function allow($aro, $aco, $action = "*")
+    public function allow($aro, $aco, $action = '*')
     {
     }
 
@@ -94,7 +92,7 @@ class IniAcl implements AclInterface
      * @param string $action Action (defaults to *)
      * @return void
      */
-    public function deny($aro, $aco, $action = "*")
+    public function deny($aro, $aco, $action = '*')
     {
     }
 
@@ -106,7 +104,7 @@ class IniAcl implements AclInterface
      * @param string $action Action (defaults to *)
      * @return void
      */
-    public function inherit($aro, $aco, $action = "*")
+    public function inherit($aro, $aco, $action = '*')
     {
     }
 
@@ -128,16 +126,16 @@ class IniAcl implements AclInterface
             $aro = Hash::get($aro, $this->userPath);
         }
 
-        if (isset($aclConfig[$aro]['deny'])) {
-            $userDenies = $this->arrayTrim(explode(",", $aclConfig[$aro]['deny']));
+        if (!empty($aclConfig[$aro]['deny'])) {
+            $userDenies = $this->arrayTrim(explode(',', $aclConfig[$aro]['deny']));
 
             if (array_search($aco, $userDenies)) {
                 return false;
             }
         }
 
-        if (isset($aclConfig[$aro]['allow'])) {
-            $userAllows = $this->arrayTrim(explode(",", $aclConfig[$aro]['allow']));
+        if (!empty($aclConfig[$aro]['allow'])) {
+            $userAllows = $this->arrayTrim(explode(',', $aclConfig[$aro]['allow']));
 
             if (array_search($aco, $userAllows)) {
                 return true;
@@ -145,20 +143,20 @@ class IniAcl implements AclInterface
         }
 
         if (isset($aclConfig[$aro]['groups'])) {
-            $userGroups = $this->arrayTrim(explode(",", $aclConfig[$aro]['groups']));
+            $userGroups = $this->arrayTrim(explode(',', $aclConfig[$aro]['groups']));
 
             foreach ($userGroups as $group) {
                 if (array_key_exists($group, $aclConfig)) {
-                    if (isset($aclConfig[$group]['deny'])) {
-                        $groupDenies = $this->arrayTrim(explode(",", $aclConfig[$group]['deny']));
+                    if (!empty($aclConfig[$group]['deny'])) {
+                        $groupDenies = $this->arrayTrim(explode(',', $aclConfig[$group]['deny']));
 
                         if (array_search($aco, $groupDenies)) {
                             return false;
                         }
                     }
 
-                    if (isset($aclConfig[$group]['allow'])) {
-                        $groupAllows = $this->arrayTrim(explode(",", $aclConfig[$group]['allow']));
+                    if (!empty($aclConfig[$group]['allow'])) {
+                        $groupAllows = $this->arrayTrim(explode(',', $aclConfig[$group]['allow']));
 
                         if (array_search($aco, $groupAllows)) {
                             return true;
@@ -196,7 +194,7 @@ class IniAcl implements AclInterface
         foreach ($array as $key => $value) {
             $array[$key] = trim($value);
         }
-        array_unshift($array, "");
+        array_unshift($array, '');
 
         return $array;
     }
